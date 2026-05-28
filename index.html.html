@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday My Love ❤️</title>
+
+  <!-- =====================================================
+       FONTS — edit font choices here if you want
+  ====================================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* =====================================================
+       CSS CUSTOM PROPERTIES — change colors/sizes here
+    ====================================================== */
+    :root {
+      --black:       #0a0806;
+      --dark-brown:  #1c120a;
+      --mid-brown:   #2e1e10;
+      --gold:        #c9a84c;
+      --gold-light:  #e8c97a;
+      --gold-pale:   #f5e6c0;
+      --beige:       #f0e6d2;
+      --beige-dark:  #d9c9b0;
+      --cream:       #faf5ec;
+      --glow:        rgba(201,168,76,0.35);
+      --glow-soft:   rgba(201,168,76,0.12);
+
+      --font-display: 'Cinzel Decorative', serif;
+      --font-serif:   'Cormorant Garamond', serif;
+      --font-sans:    'Lato', sans-serif;
+    }
+
+    /* =====================================================
+       RESET & BASE
+    ====================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--beige);
+      font-family: var(--font-serif);
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--dark-brown); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* =====================================================
+       CANVAS (particle background — behind everything)
+    ====================================================== */
+    #particle-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* =====================================================
+       SECTION WRAPPERS
+    ====================================================== */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* =====================================================
+       SECTION DIVIDER
+    ====================================================== */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin: 0 auto 4rem;
+      max-width: 400px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+    .divider-heart { color: var(--gold); font-size: 1.1rem; }
+
+    /* =====================================================
+       1. HERO / LANDING
+    ====================================================== */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, var(--mid-brown) 0%, var(--dark-brown) 50%, var(--black) 100%);
+    }
+
+    .hero-crown {
+      font-size: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.3s forwards;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+    }
+
+    /* ===== EDIT: Main title text ===== */
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--gold-pale);
+      text-shadow: 0 0 60px var(--glow), 0 0 120px rgba(201,168,76,0.2);
+      opacity: 0;
+      animation: fadeUp 1.2s ease 0.6s forwards;
+      margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      font-weight: 300;
+      color: var(--gold-light);
+      letter-spacing: 0.12em;
+      opacity: 0;
+      animation: fadeUp 1.2s ease 1s forwards;
+      margin-bottom: 3rem;
+    }
+
+    .hero-scroll-hint {
+      opacity: 0;
+      animation: fadeUp 1s ease 1.8s forwards;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--beige-dark);
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* =====================================================
+       2. MESSAGE SECTION
+    ====================================================== */
+    #message {
+      padding: 8rem 0;
+      background: linear-gradient(180deg, var(--black) 0%, var(--dark-brown) 50%, var(--black) 100%);
+    }
+
+    .message-label {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.9s ease;
+    }
+    .message-label.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== EDIT: The main love letter text ===== */
+    .message-body {
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.9;
+      text-align: center;
+      color: var(--beige);
+      max-width: 720px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1.1s ease 0.2s;
+    }
+    .message-body.visible { opacity: 1; transform: translateY(0); }
+
+    .message-highlight {
+      color: var(--gold-light);
+      font-weight: 400;
+    }
+
+    .message-signature {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      color: var(--gold);
+      text-align: center;
+      margin-top: 3rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.9s ease 0.5s;
+    }
+    .message-signature.visible { opacity: 1; transform: translateY(0); }
+
+    /* =====================================================
+       3. PHOTO GALLERY
+    ====================================================== */
+    #gallery {
+      padding: 8rem 0;
+      background: var(--black);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+      color: var(--gold-pale);
+      text-align: center;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.9s ease;
+    }
+    .section-title.visible { opacity: 1; transform: translateY(0); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-top: 3.5rem;
+    }
+
+    /* ===== EDIT: Replace the background-image URLs with your own photos ===== */
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 3/4;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(30px) scale(0.97);
+      transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.4s ease;
+      background-color: var(--mid-brown);
+    }
+    .gallery-item.visible { opacity: 1; transform: translateY(0) scale(1); }
+
+    /* Staggered delay helpers */
+    .gallery-item:nth-child(1) { transition-delay: 0.05s; }
+    .gallery-item:nth-child(2) { transition-delay: 0.15s; }
+    .gallery-item:nth-child(3) { transition-delay: 0.25s; }
+    .gallery-item:nth-child(4) { transition-delay: 0.35s; }
+    .gallery-item:nth-child(5) { transition-delay: 0.45s; }
+    .gallery-item:nth-child(6) { transition-delay: 0.55s; }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+      display: block;
+    }
+    .gallery-item:hover img { transform: scale(1.08); }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,8,6,0.7) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    .gallery-item:hover {
+      box-shadow: 0 0 40px var(--glow), 0 8px 40px rgba(0,0,0,0.6);
+    }
+
+    /* Placeholder for missing photos */
+    .gallery-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      background: linear-gradient(135deg, var(--mid-brown), var(--dark-brown));
+      color: var(--gold);
+      font-size: 2.5rem;
+    }
+    .gallery-placeholder span {
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--beige-dark);
+    }
+
+    /* =====================================================
+       4. REASONS I LOVE YOU
+    ====================================================== */
+    #reasons {
+      padding: 8rem 0;
+      background: linear-gradient(180deg, var(--black) 0%, var(--dark-brown) 50%, var(--black) 100%);
+    }
+
+    .reasons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+
+    /* ===== EDIT: Change the reason texts inside .reason-card ===== */
+    .reason-card {
+      background: linear-gradient(135deg, rgba(46,30,16,0.8), rgba(28,18,10,0.9));
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 6px;
+      padding: 2rem 1.6rem;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+    .reason-card.visible { opacity: 1; transform: translateY(0); }
+
+    .reason-card:hover {
+      box-shadow: 0 0 30px var(--glow-soft), 0 4px 30px rgba(0,0,0,0.5);
+      border-color: rgba(201,168,76,0.5);
+      transform: translateY(-4px);
+    }
+    .reason-card.visible:hover { transform: translateY(-4px); }
+
+    .reason-number {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      margin-bottom: 1rem;
+    }
+
+    .reason-text {
+      font-size: 1.15rem;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--beige);
+    }
+
+    /* =====================================================
+       5. COUNTDOWN TIMER
+    ====================================================== */
+    #countdown {
+      padding: 8rem 0;
+      background: var(--black);
+      text-align: center;
+    }
+
+    .countdown-label {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.9s ease;
+    }
+    .countdown-label.visible { opacity: 1; transform: translateY(0); }
+
+    .countdown-subtitle {
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: var(--beige-dark);
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.9s ease 0.2s;
+    }
+    .countdown-subtitle.visible { opacity: 1; transform: translateY(0); }
+
+    .timer-grid {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease 0.4s;
+    }
+    .timer-grid.visible { opacity: 1; transform: translateY(0); }
+
+    .timer-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      min-width: 80px;
+    }
+
+    .timer-value {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 700;
+      color: var(--gold-pale);
+      text-shadow: 0 0 40px var(--glow);
+      line-height: 1;
+      transition: transform 0.15s ease;
+    }
+    .timer-value.tick { transform: scale(1.08); }
+
+    .timer-unit-label {
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .timer-separator {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 6vw, 4rem);
+      color: var(--gold);
+      align-self: flex-start;
+      padding-top: 0.1em;
+      opacity: 0.4;
+    }
+
+    /* =====================================================
+       6. FINAL SURPRISE SECTION
+    ====================================================== */
+    #surprise {
+      padding: 10rem 0;
+      background: linear-gradient(180deg, var(--black) 0%, var(--mid-brown) 50%, var(--black) 100%);
+      text-align: center;
+    }
+
+    .surprise-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3.5vw, 2.5rem);
+      color: var(--gold-pale);
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.9s ease;
+    }
+    .surprise-title.visible { opacity: 1; transform: translateY(0); }
+
+    .surprise-tagline {
+      font-style: italic;
+      color: var(--beige-dark);
+      margin-bottom: 3.5rem;
+      font-size: 1.1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.9s ease 0.2s;
+    }
+    .surprise-tagline.visible { opacity: 1; transform: translateY(0); }
+
+    /* Glowing CTA button */
+    .glow-btn {
+      position: relative;
+      display: inline-block;
+      padding: 1.2rem 3.5rem;
+      font-family: var(--font-display);
+      font-size: clamp(0.85rem, 2vw, 1.1rem);
+      letter-spacing: 0.15em;
+      color: var(--black);
+      background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-light));
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.9s ease 0.4s, transform 0.9s ease 0.4s, box-shadow 0.3s ease;
+      box-shadow: 0 0 30px var(--glow), 0 0 60px rgba(201,168,76,0.15);
+    }
+    .glow-btn.visible { opacity: 1; transform: translateY(0); }
+    .glow-btn:hover {
+      box-shadow: 0 0 50px var(--glow), 0 0 100px rgba(201,168,76,0.25);
+      transform: translateY(-2px) scale(1.02);
+    }
+    .glow-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+    .glow-btn:hover::after { transform: translateX(100%); }
+
+    /* =====================================================
+       POPUP MODAL
+    ====================================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5,3,2,0.92);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      backdrop-filter: blur(6px);
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal-box {
+      background: linear-gradient(145deg, var(--mid-brown), var(--dark-brown));
+      border: 1px solid rgba(201,168,76,0.35);
+      border-radius: 6px;
+      padding: 4rem 3rem;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 0 80px var(--glow), 0 20px 60px rgba(0,0,0,0.8);
+      transform: scale(0.88) translateY(20px);
+      transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .modal-overlay.open .modal-box { transform: scale(1) translateY(0); }
+
+    .modal-heart {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 1.5rem;
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    /* ===== EDIT: Popup message text ===== */
+    .modal-text {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.3rem, 3vw, 1.9rem);
+      font-weight: 300;
+      color: var(--beige);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+    .modal-text strong { color: var(--gold-light); font-weight: 400; }
+
+    .modal-close {
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.5);
+      color: var(--gold);
+      padding: 0.7rem 2.5rem;
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background 0.3s, color 0.3s;
+    }
+    .modal-close:hover { background: var(--gold); color: var(--black); }
+
+    /* =====================================================
+       FLOATING HEARTS (decorative)
+    ====================================================== */
+    .floating-hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .fh {
+      position: absolute;
+      bottom: -60px;
+      font-size: 1.2rem;
+      opacity: 0;
+      animation: floatHeart linear infinite;
+    }
+
+    /* =====================================================
+       FOOTER
+    ====================================================== */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 3rem 2rem;
+      text-align: center;
+      background: var(--black);
+      border-top: 1px solid rgba(201,168,76,0.1);
+    }
+    footer p {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.7;
+    }
+
+    /* =====================================================
+       KEYFRAMES
+    ====================================================== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50%       { opacity: 1;   transform: scaleY(1.15); }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14%       { transform: scale(1.12); }
+      28%       { transform: scale(1); }
+      42%       { transform: scale(1.08); }
+      56%       { transform: scale(1); }
+    }
+
+    @keyframes floatHeart {
+      0%   { transform: translateY(0) translateX(0) rotate(0deg);   opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.3; }
+      100% { transform: translateY(-110vh) translateX(var(--drift)) rotate(360deg); opacity: 0; }
+    }
+
+    /* =====================================================
+       RESPONSIVE
+    ====================================================== */
+    @media (max-width: 680px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .reasons-grid { grid-template-columns: 1fr; }
+      .timer-grid { gap: 1rem; }
+      .timer-separator { display: none; }
+      .modal-box { padding: 3rem 1.8rem; }
+    }
+
+    @media (max-width: 420px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particle canvas (glow particles) -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Floating hearts -->
+  <div class="floating-hearts" id="floatingHearts"></div>
+
+  <!-- ==================================================
+       SECTION 1: HERO
+  =================================================== -->
+  <section id="hero">
+    <div class="hero-crown">✦ &nbsp;&nbsp; ✦ &nbsp;&nbsp; ✦</div>
+
+    <!-- ===== EDIT TITLE HERE ===== -->
+    <h1 class="hero-title">Happy Birthday<br/>My Love ❤️</h1>
+
+    <!-- ===== EDIT SUBTITLE HERE ===== -->
+    <p class="hero-subtitle">A celebration written in the stars, just for you.</p>
+
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ==================================================
+       SECTION 2: ROMANTIC MESSAGE
+  =================================================== -->
+  <section id="message">
+    <div class="section-inner">
+      <p class="message-label">A Letter From My Heart</p>
+
+      <div class="divider"><span class="divider-heart">♡</span></div>
+
+      <!-- ===== EDIT THE LOVE MESSAGE HERE ===== -->
+      <p class="message-body">
+        Happy birthday to <span class="message-highlight">the most special person</span> in my life.<br/><br/>
+        Thank you for your love, your presence, your patience,
+        and <span class="message-highlight">every beautiful moment</span> we share.<br/><br/>
+        You make the world softer, warmer, and so much more worth living.
+        I love you more than words could ever explain —
+        <span class="message-highlight">and more than you will ever know.</span>
+      </p>
+
+      <!-- ===== EDIT SIGNATURE HERE ===== -->
+      <p class="message-signature">Forever yours ♥</p>
+    </div>
+  </section>
+
+  <!-- ==================================================
+       SECTION 3: PHOTO GALLERY
+  =================================================== -->
+  <section id="gallery">
+    <div class="section-inner">
+      <h2 class="section-title">Our Beautiful Moments</h2>
+      <div class="divider"><span class="divider-heart">♡</span></div>
+
+      <div class="gallery-grid">
+
+        <!-- ===== EDIT: Replace src="" with your photo paths/URLs ===== -->
+        <!-- Photo 1 -->
+        <div class="gallery-item">
+          <div class="gallery-placeholder">📷<span>Your Photo</span></div>
+          <div class="gallery-overlay"></div>
+        </div>
+
+        <!-- Photo 2 -->
+        <div class="gallery-item">
+          <div class="gallery-placeholder">📷<span>Your Photo</span></div>
+          <div class="gallery-overlay"></div>
+        </div>
+
+        <!-- Photo 3 -->
+        <div class="gallery-item">
+          <div class="gallery-placeholder">📷<span>Your Photo</span></div>
+          <div class="gallery-overlay"></div>
+        </div>
+
+        <!-- Photo 4 -->
+        <div class="gallery-item">
+          <div class="gallery-placeholder">📷<span>Your Photo</span></div>
+          <div class="gallery-overlay"></div>
+        </div>
+
+        <!-- Photo 5 -->
+        <div class="gallery-item">
+          <div class="gallery-placeholder">📷<span>Your Photo</span></div>
+          <div class="gallery-overlay"></div>
+        </div>
+
+        <!-- Photo 6 -->
+        <div class="gallery-item">
+          <div class="gallery-placeholder">📷<span>Your Photo</span></div>
+          <div class="gallery-overlay"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================
+       SECTION 4: REASONS I LOVE YOU
+  =================================================== -->
+  <section id="reasons">
+    <div class="section-inner">
+      <h2 class="section-title">Reasons Why I Love You</h2>
+      <div class="divider"><span class="divider-heart">♡</span></div>
+
+      <div class="reasons-grid">
+
+        <!-- ===== EDIT the reason texts inside each .reason-text span ===== -->
+        <div class="reason-card">
+          <p class="reason-number">01</p>
+          <p class="reason-text">The way your eyes light up when you talk about something you love.</p>
+        </div>
+
+        <div class="reason-card">
+          <p class="reason-number">02</p>
+          <p class="reason-text">How you make every ordinary moment feel like a memory worth keeping.</p>
+        </div>
+
+        <div class="reason-card">
+          <p class="reason-number">03</p>
+          <p class="reason-text">Your laugh — it's the best sound I've ever heard.</p>
+        </div>
+
+        <div class="reason-card">
+          <p class="reason-number">04</p>
+          <p class="reason-text">The way you always know what to say when I need it most.</p>
+        </div>
+
+        <div class="reason-card">
+          <p class="reason-number">05</p>
+          <p class="reason-text">How safe I feel when I'm in your arms. Like home.</p>
+        </div>
+
+        <div class="reason-card">
+          <p class="reason-number">06</p>
+          <p class="reason-text">Your kindness — it reaches everyone around you without even trying.</p>
+        </div>
+
+        <div class="reason-card">
+          <p class="reason-number">07</p>
+          <p class="reason-text">The way you love me — quietly, deeply, and completely.</p>
+        </div>
+
+        <div class="reason-card">
+          <p class="reason-number">08</p>
+          <p class="reason-text">Every little thing you do that you don't even know I notice.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================
+       SECTION 5: COUNTDOWN TIMER
+  =================================================== -->
+  <section id="countdown">
+    <div class="section-inner">
+      <p class="countdown-label">Time Together</p>
+      <h2 class="section-title" style="margin-bottom:0.5rem;">Every Second With You</h2>
+
+      <!-- ===== EDIT the subtitle below ===== -->
+      <p class="countdown-subtitle">Time since I fell in love with you…</p>
+
+      <div class="timer-grid">
+        <div class="timer-unit">
+          <span class="timer-value" id="t-years">0</span>
+          <span class="timer-unit-label">Years</span>
+        </div>
+        <span class="timer-separator">:</span>
+        <div class="timer-unit">
+          <span class="timer-value" id="t-days">0</span>
+          <span class="timer-unit-label">Days</span>
+        </div>
+        <span class="timer-separator">:</span>
+        <div class="timer-unit">
+          <span class="timer-value" id="t-hours">0</span>
+          <span class="timer-unit-label">Hours</span>
+        </div>
+        <span class="timer-separator">:</span>
+        <div class="timer-unit">
+          <span class="timer-value" id="t-minutes">0</span>
+          <span class="timer-unit-label">Minutes</span>
+        </div>
+        <span class="timer-separator">:</span>
+        <div class="timer-unit">
+          <span class="timer-value" id="t-seconds">0</span>
+          <span class="timer-unit-label">Seconds</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================
+       SECTION 6: SURPRISE
+  =================================================== -->
+  <section id="surprise">
+    <div class="section-inner">
+      <!-- ===== EDIT surprise section title/tagline ===== -->
+      <h2 class="surprise-title">One Last Thing…</h2>
+      <p class="surprise-tagline">There's a little secret I want to tell you.</p>
+
+      <button class="glow-btn" id="surpriseBtn" onclick="openModal()">
+        ✦ &nbsp; Click Me &nbsp; ✦
+      </button>
+    </div>
+  </section>
+
+  <!-- ==================================================
+       POPUP MODAL
+  =================================================== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box">
+      <span class="modal-heart">❤️</span>
+
+      <!-- ===== EDIT popup message here ===== -->
+      <p class="modal-text">
+        You are my <strong>favorite person</strong> in this entire world.<br/><br/>
+        On your birthday and every day after — I choose you.
+        <strong>Always.</strong>
+      </p>
+
+      <button class="modal-close" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Made with ❤️ — just for you</p>
+  </footer>
+
+  <!-- ==================================================
+       JAVASCRIPT
+  =================================================== -->
+  <script>
+    /* ===================================================
+       PARTICLE CANVAS — soft glowing gold orbs
+    =================================================== */
+    (function() {
+      const canvas = document.getElementById('particle-canvas');
+      const ctx = canvas.getContext('2d');
+      let W, H, particles = [];
+
+      function resize() {
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      function rand(min, max) { return min + Math.random() * (max - min); }
+
+      function createParticle() {
+        return {
+          x: rand(0, W),
+          y: rand(0, H),
+          r: rand(1, 3.5),
+          alpha: rand(0.05, 0.35),
+          vx: rand(-0.12, 0.12),
+          vy: rand(-0.18, -0.04),
+          flicker: rand(0.003, 0.008),
+          phase: rand(0, Math.PI * 2)
+        };
+      }
+
+      for (let i = 0; i < 90; i++) particles.push(createParticle());
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        const t = Date.now() * 0.001;
+        particles.forEach(p => {
+          const a = p.alpha * (0.6 + 0.4 * Math.sin(t * p.flicker * 60 + p.phase));
+          const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3);
+          grad.addColorStop(0,   `rgba(232,201,122,${a})`);
+          grad.addColorStop(0.5, `rgba(201,168,76,${a * 0.4})`);
+          grad.addColorStop(1,   'rgba(201,168,76,0)');
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
+          ctx.fillStyle = grad;
+          ctx.fill();
+          p.x += p.vx; p.y += p.vy;
+          if (p.y < -20 || p.x < -20 || p.x > W + 20) {
+            Object.assign(p, createParticle(), { y: H + 10, x: rand(0, W) });
+          }
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    /* ===================================================
+       FLOATING HEARTS
+    =================================================== */
+    (function() {
+      const container = document.getElementById('floatingHearts');
+      const emojis = ['❤️','🤍','✨','💛','🌸','♡'];
+      let count = 0;
+      function spawnHeart() {
+        const el = document.createElement('div');
+        el.className = 'fh';
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        const left = Math.random() * 100;
+        const dur  = 12 + Math.random() * 14;
+        const size = 0.7 + Math.random() * 1;
+        const drift = (Math.random() - 0.5) * 200;
+        el.style.cssText = `
+          left:${left}vw;
+          font-size:${size}rem;
+          animation-duration:${dur}s;
+          animation-delay:${Math.random() * dur}s;
+          --drift:${drift}px;
+        `;
+        container.appendChild(el);
+        setTimeout(() => el.remove(), dur * 1000 + 2000);
+      }
+      for (let i = 0; i < 18; i++) spawnHeart();
+      setInterval(spawnHeart, 2200);
+    })();
+
+    /* ===================================================
+       INTERSECTION OBSERVER — scroll-reveal
+    =================================================== */
+    const revealEls = document.querySelectorAll(
+      '.message-label, .message-body, .message-signature, ' +
+      '.section-title, .gallery-item, .reason-card, ' +
+      '.countdown-label, .countdown-subtitle, .timer-grid, ' +
+      '.surprise-title, .surprise-tagline, .glow-btn'
+    );
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    /* ===================================================
+       COUNTDOWN TIMER
+       ===== EDIT: Change the start date below =====
+       Format: new Date('YYYY-MM-DDTHH:MM:SS')
+    =================================================== */
+    const loveStartDate = new Date('2023-06-15T18:30:00'); // ← CHANGE THIS DATE
+
+    function updateTimer() {
+      const now   = new Date();
+      const diff  = now - loveStartDate;
+      const totalSeconds = Math.floor(diff / 1000);
+      const secs  = totalSeconds % 60;
+      const mins  = Math.floor(totalSeconds / 60) % 60;
+      const hours = Math.floor(totalSeconds / 3600) % 24;
+      const totalDays = Math.floor(totalSeconds / 86400);
+      const years = Math.floor(totalDays / 365);
+      const days  = totalDays % 365;
+
+      function set(id, val, pad=2) {
+        const el = document.getElementById(id);
+        const str = String(val).padStart(pad, '0');
+        if (el.textContent !== str) {
+          el.textContent = str;
+          el.classList.remove('tick');
+          void el.offsetWidth;
+          el.classList.add('tick');
+        }
+      }
+      set('t-years',   years,  1);
+      set('t-days',    days,   3);
+      set('t-hours',   hours,  2);
+      set('t-minutes', mins,   2);
+      set('t-seconds', secs,   2);
+    }
+    updateTimer();
+    setInterval(updateTimer, 1000);
+
+    /* ===================================================
+       MODAL
+    =================================================== */
+    function openModal() {
+      document.getElementById('modalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    // Close by clicking backdrop
+    document.getElementById('modalOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+    // Close with Escape key
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  </script>
+</body>
+</html>
